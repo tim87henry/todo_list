@@ -1,0 +1,21 @@
+#navbar {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+    background: rgb(156, 191, 226);
+}
+
+body {
+    color:white;
+}
+
+#todo_data {
+    background: lightblue;
+    position: absolute;
+    margin-left: 325px;
+    margin-top: 7px;
+    font-family: 'Crimson Text', serif;
+    font-size: 19px;
+    line-height: 1.5;
+}
