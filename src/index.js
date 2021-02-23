@@ -3,6 +3,7 @@ import createProject from './project';
 
 document.body.style.background="lightsalmon";
 
+// Create a few default projects and todos
 let listOfProjects=[]
 const doto = new todo("Clean room","Clean the damn room","today","very high");
 const test_project=createProject("Room")
@@ -14,6 +15,8 @@ const test_project1=createProject("Kitchen")
 test_project1.addTodo(doto1);
 listOfProjects.push(test_project1)
 
+
+// Add navbar and todo display areas
 const content = document.getElementById("content");
 
 const navbar = document.createElement('div');
@@ -33,6 +36,11 @@ navbar.appendChild(project_list);
 content.appendChild(navbar);
 showProjects();
 
+const projectData = document.createElement('div');
+projectData.id="todo_data";
+content.appendChild(projectData);
+
+// Function to display projects in the navbar
 function showProjects() {
     project_list.innerHTML="";
     for (let i=0;i<listOfProjects.length;i++) {
@@ -47,14 +55,18 @@ function showProjects() {
     let project_links=document.getElementsByClassName("project_link");
     for (let i=0;i<project_links.length;i++) {
         project_links[i].addEventListener('click', function (e) {
-            const todoData = document.createElement('div');
-            todoData.id="todo_data";
-            todoData.innerHTML="Here are the list of Todos : "+"<br>"+listOfProjects[i].listTodos();
-            content.appendChild(todoData);
+            displayTodos(i);
+            addNewTodo();
         });
     }
 }
 
+function displayTodos(projectNum) {
+    projectData.innerHTML="";
+    projectData.innerHTML="Here are the list of Todos : "+"<br>"+listOfProjects[projectNum].listTodos()+"<br>";
+}
+
+// Add a new project
 const add_project_box=document.createElement('div');
 const name_div=document.createElement('div');
 const name_label=document.createElement('div');
@@ -90,4 +102,55 @@ navbar.appendChild(add_project_box);
 
 function addProject() {
     add_project_box.style.display="block";
+}
+
+function addNewTodo() {
+    // Add a new Todo
+    const new_todo=document.createElement("button");
+    new_todo.innerHTML="Add todo";
+    projectData.appendChild(new_todo)
+    new_todo.addEventListener('click',function (e) {
+        addTodo();
+    });
+
+}
+
+const add_todo_box=document.createElement('div');
+const todo_name_div=document.createElement('div');
+const todo_name_label=document.createElement('div');
+todo_name_label.innerHTML="Name :: ";
+todo_name_div.appendChild(todo_name_label);
+const todo_name_text=document.createElement('input');
+todo_name_div.appendChild(todo_name_text);
+add_todo_box.appendChild(todo_name_div);
+
+const todoOkayBtn=document.createElement('button');
+todoOkayBtn.innerHTML="Okay";
+add_todo_box.appendChild(todoOkayBtn);
+todoOkayBtn.addEventListener('click',function(e) {
+    const new_project=createProject(name_text.value);
+    //listOfProjects.push(new_project);
+    name_text.value="";
+    add_todo_box.style.display="none";
+    //showProjects();
+});
+
+const todoCancelBtn=document.createElement('button');
+todoCancelBtn.innerHTML="Cancel";
+add_todo_box.appendChild(todoCancelBtn);
+todoCancelBtn.addEventListener('click',function(e) {
+    todo_name_text.value="";
+    add_todo_box.style.display="none";
+});
+
+add_todo_box.id="add_todo_box";
+add_todo_box.style.display="none";
+const pD=document.getElementById("todo_data");
+console.log("value is "+pD.innerHTML)
+pD.appendChild(add_todo_box);
+
+
+function addTodo() {
+    //console.log("here "+add_todo_box.innerHTML)
+    add_todo_box.style.display="block";
 }
