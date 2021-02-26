@@ -5,6 +5,7 @@ document.body.style.background="lightsalmon";
 
 // Create a few default projects and todos
 let listOfProjects=[]
+let currentProject;
 const doto = new todo("Clean room","Clean the damn room","today","very high");
 const test_project=createProject("Room")
 test_project.addTodo(doto);
@@ -55,15 +56,16 @@ function showProjects() {
     let project_links=document.getElementsByClassName("project_link");
     for (let i=0;i<project_links.length;i++) {
         project_links[i].addEventListener('click', function (e) {
-            displayTodos(i);
+            currentProject=listOfProjects[i];
+            displayTodos();
             addNewTodo();
         });
     }
 }
 
-function displayTodos(projectNum) {
+function displayTodos() {
     projectData.innerHTML="";
-    projectData.innerHTML="Here are the list of Todos : "+"<br>"+listOfProjects[projectNum].listTodos()+"<br>";
+    projectData.innerHTML="Here are the list of Todos : "+"<br>"+currentProject.listTodos()+"<br>";
 }
 
 // Add a new project
@@ -104,8 +106,8 @@ function addProject() {
     add_project_box.style.display="block";
 }
 
+// Add a new Todo
 function addNewTodo() {
-    // Add a new Todo
     const new_todo=document.createElement("button");
     new_todo.innerHTML="Add todo";
     projectData.appendChild(new_todo)
@@ -128,11 +130,11 @@ const todoOkayBtn=document.createElement('button');
 todoOkayBtn.innerHTML="Okay";
 add_todo_box.appendChild(todoOkayBtn);
 todoOkayBtn.addEventListener('click',function(e) {
-    const new_project=createProject(name_text.value);
-    //listOfProjects.push(new_project);
-    name_text.value="";
+    const new_todo=createProject(todo_name_text.value);
+    currentProject.addTodo(new_todo)
+    todo_name_text.value="";
     add_todo_box.style.display="none";
-    //showProjects();
+    displayTodos();
 });
 
 const todoCancelBtn=document.createElement('button');
@@ -145,9 +147,7 @@ todoCancelBtn.addEventListener('click',function(e) {
 
 add_todo_box.id="add_todo_box";
 add_todo_box.style.display="none";
-const pD=document.getElementById("todo_data");
-console.log("value is "+pD.innerHTML)
-pD.appendChild(add_todo_box);
+content.appendChild(add_todo_box);
 
 
 function addTodo() {
