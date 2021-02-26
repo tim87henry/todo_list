@@ -27,3 +27,10 @@ body {
 .project_link:hover {
     background: lightcoral;
 }
+
+#add_todo_box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 200px;
+}
