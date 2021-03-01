@@ -8,6 +8,7 @@ let listOfProjects=[]
 let currentProject;
 const doto = new todo("Clean room","Clean the damn room","today","very high");
 const test_project=createProject("Room")
+currentProject=test_project;
 test_project.addTodo(doto);
 const doto1 = new todo("Eat Chips","eat some crisps","next year","pretty low");
 test_project.addTodo(doto1);
@@ -58,14 +59,34 @@ function showProjects() {
         project_links[i].addEventListener('click', function (e) {
             currentProject=listOfProjects[i];
             displayTodos();
-            addNewTodo();
         });
     }
 }
 
 function displayTodos() {
     projectData.innerHTML="";
-    projectData.innerHTML="Here are the list of Todos : "+"<br>"+currentProject.listTodos()+"<br>";
+    projectData.innerHTML="Here are the list of Todos : "+"<br><br>";
+    for (let i=0;i<currentProject.listTodos().length;i++) {
+        projectData.innerHTML=projectData.innerHTML+currentProject.listTodos()[i].name+"&emsp;";
+        const delete_button=document.createElement("button");
+        delete_button.id=currentProject.listTodos()[i].name;
+        delete_button.className="delete_button";
+        delete_button.innerHTML="Delete";
+        projectData.appendChild(delete_button);
+        projectData.innerHTML=projectData.innerHTML+"<br>";
+    }
+    const deleteBtns=document.getElementsByClassName("delete_button");
+    for (let i=0;i<deleteBtns.length;i++) {
+        deleteBtns[i].addEventListener('click', function (e) {
+            deleteTodo(deleteBtns[i].id)
+        });
+    }
+    addNewTodo();
+}
+
+function deleteTodo(todo_name) {
+    currentProject.deleteTodo(todo_name);
+    displayTodos();
 }
 
 // Add a new project
@@ -151,6 +172,5 @@ content.appendChild(add_todo_box);
 
 
 function addTodo() {
-    //console.log("here "+add_todo_box.innerHTML)
     add_todo_box.style.display="block";
 }
