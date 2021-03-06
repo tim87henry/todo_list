@@ -61,6 +61,7 @@ function showProjects() {
             displayTodos();
         });
     }
+    displayTodos();
 }
 
 function displayTodos() {
