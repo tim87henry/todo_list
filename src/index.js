@@ -42,6 +42,8 @@ const projectData = document.createElement('div');
 projectData.id="todo_data";
 content.appendChild(projectData);
 
+displayTodos();
+
 // Function to display projects in the navbar
 function showProjects() {
     project_list.innerHTML="";
@@ -61,7 +63,6 @@ function showProjects() {
             displayTodos();
         });
     }
-    displayTodos();
 }
 
 function displayTodos() {
@@ -74,6 +75,13 @@ function displayTodos() {
         delete_button.className="delete_button";
         delete_button.innerHTML="Delete";
         projectData.appendChild(delete_button);
+        projectData.innerHTML=projectData.innerHTML+"&emsp;";
+
+        const show_button=document.createElement("button");
+        show_button.id=currentProject.listTodos()[i].name;
+        show_button.className="show_button";
+        show_button.innerHTML="Show";
+        projectData.appendChild(show_button);
         projectData.innerHTML=projectData.innerHTML+"<br>";
     }
     const deleteBtns=document.getElementsByClassName("delete_button");
@@ -82,12 +90,28 @@ function displayTodos() {
             deleteTodo(deleteBtns[i].id)
         });
     }
+    
+    const showBtns=document.getElementsByClassName("show_button");
+    for (let i=0;i<showBtns.length;i++) {
+        showBtns[i].addEventListener('click', function (e) {
+            showTodo(showBtns[i].id)
+        });
+    }
+
     addNewTodo();
 }
 
 function deleteTodo(todo_name) {
     currentProject.deleteTodo(todo_name);
     displayTodos();
+}
+
+function showTodo(todo_name) {
+    //currentProject.deleteTodo(todo_name);
+    //displayTodos();
+    let detailedTodo=document.createElement("div");
+    detailedTodo.className="detailed_todo";
+    currentProject.showTodo(todo_name);
 }
 
 // Add a new project
