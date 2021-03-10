@@ -83,6 +83,11 @@ function displayTodos() {
         show_button.innerHTML="Show";
         projectData.appendChild(show_button);
         projectData.innerHTML=projectData.innerHTML+"<br>";
+        
+        const details=document.createElement("div");
+        details.id=currentProject.listTodos()[i].name+"info";
+        details.style.display="none";
+        projectData.appendChild(details);
     }
     const deleteBtns=document.getElementsByClassName("delete_button");
     for (let i=0;i<deleteBtns.length;i++) {
@@ -107,9 +112,7 @@ function deleteTodo(todo_name) {
 }
 
 function showTodo(todo_name) {
-    //currentProject.deleteTodo(todo_name);
-    //displayTodos();
-    let detailedTodo=document.createElement("div");
+    const detailedTodo=document.createElement("div");
     detailedTodo.className="detailed_todo";
     currentProject.showTodo(todo_name);
 }
