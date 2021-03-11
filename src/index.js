@@ -26,11 +26,15 @@ navbar.id="navbar";
 navbar.innerHTML="Project List"+"<br>"+"<br>";
 
 const new_project=document.createElement("button");
-new_project.innerHTML="Add project";
+new_project.innerHTML='<i class="material-icons">add</i>';
+new_project.id="new_project_button";
 navbar.appendChild(new_project)
 new_project.addEventListener('click',function (e) {
     addProject();
 });
+let line_break=document.createElement('div');
+line_break.innerHTML="<br>";
+navbar.appendChild(line_break);
 
 const project_list = document.createElement('div');
 project_list.id="project_list";
@@ -67,20 +71,20 @@ function showProjects() {
 
 function displayTodos() {
     projectData.innerHTML="";
-    projectData.innerHTML="Here are the list of Todos : "+"<br><br>";
+    projectData.innerHTML=currentProject.name+"'s Todos : "+"<br><br>";
     for (let i=0;i<currentProject.listTodos().length;i++) {
         projectData.innerHTML=projectData.innerHTML+currentProject.listTodos()[i].name+"&emsp;";
         const delete_button=document.createElement("button");
         delete_button.id=currentProject.listTodos()[i].name;
         delete_button.className="delete_button";
-        delete_button.innerHTML="Delete";
+        delete_button.innerHTML='<i class="material-icons delete_todo">delete</i>';
         projectData.appendChild(delete_button);
         projectData.innerHTML=projectData.innerHTML+"&emsp;";
 
         const show_button=document.createElement("button");
         show_button.id=currentProject.listTodos()[i].name;
         show_button.className="show_button";
-        show_button.innerHTML="Show";
+        show_button.innerHTML='<i class="material-icons show_todo">keyboard_arrow_down</i>';
         projectData.appendChild(show_button);
         projectData.innerHTML=projectData.innerHTML+"<br>";
         
@@ -102,6 +106,10 @@ function displayTodos() {
             showTodo(showBtns[i].id)
         });
     }
+
+    let line_break=document.createElement('div');
+    line_break.innerHTML="<br>";
+    projectData.appendChild(line_break);
 
     addNewTodo();
 }
@@ -158,7 +166,8 @@ function addProject() {
 // Add a new Todo
 function addNewTodo() {
     const new_todo=document.createElement("button");
-    new_todo.innerHTML="Add todo";
+    new_todo.id="new_todo_button";
+    new_todo.innerHTML='<i class="material-icons">fiber_new</i>';
     projectData.appendChild(new_todo)
     new_todo.addEventListener('click',function (e) {
         addTodo();
@@ -175,11 +184,36 @@ const todo_name_text=document.createElement('input');
 todo_name_div.appendChild(todo_name_text);
 add_todo_box.appendChild(todo_name_div);
 
+const todo_descr_div=document.createElement('div');
+const todo_descr_label=document.createElement('div');
+todo_descr_label.innerHTML="Description :: ";
+todo_descr_div.appendChild(todo_descr_label);
+const todo_descr_text=document.createElement('input');
+todo_descr_div.appendChild(todo_descr_text);
+add_todo_box.appendChild(todo_descr_div);
+
+const todo_due_div=document.createElement('div');
+const todo_due_label=document.createElement('div');
+todo_due_label.innerHTML="Due by :: ";
+todo_due_div.appendChild(todo_due_label);
+const todo_due_date=document.createElement('input');
+todo_due_date.type='date';
+todo_due_div.appendChild(todo_due_date);
+add_todo_box.appendChild(todo_due_div);
+
+const todo_priority_div=document.createElement('div');
+const todo_priority_label=document.createElement('div');
+todo_priority_label.innerHTML="Priority :: ";
+todo_priority_div.appendChild(todo_priority_label);
+const todo_priority_value=document.createElement('input');
+todo_priority_div.appendChild(todo_priority_value);
+add_todo_box.appendChild(todo_priority_div);
+
 const todoOkayBtn=document.createElement('button');
 todoOkayBtn.innerHTML="Okay";
 add_todo_box.appendChild(todoOkayBtn);
 todoOkayBtn.addEventListener('click',function(e) {
-    const new_todo=createProject(todo_name_text.value);
+    const new_todo=new todo(todo_name_text.value,todo_descr_text.value,todo_due_date.value,todo_priority_value.value);
     currentProject.addTodo(new_todo)
     todo_name_text.value="";
     add_todo_box.style.display="none";

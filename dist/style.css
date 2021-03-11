@@ -34,3 +34,14 @@ body {
     width: 50%;
     padding: 200px;
 }
+
+#new_project_button {
+    background:rgb(156, 191, 226);
+    border: 0;
+}
+
+.delete_button,.show_button,#new_todo_button {
+    background: lightblue;
+    border: 0;
+    cursor: pointer;
+}
