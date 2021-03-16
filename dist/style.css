@@ -1,9 +1,14 @@
 #navbar {
+    border: 0;
     position: fixed;
     width: 300px;
     height: 100%;
     overflow: auto;
-    background: rgb(156, 191, 226);
+    background: #BE3737;
+}
+
+#navbar_heading {
+    font-size: 22px;
 }
 
 body {
@@ -11,13 +16,23 @@ body {
 }
 
 #todo_data {
-    background: lightblue;
+    background: #47B28C;
     position: absolute;
     margin-left: 325px;
     margin-top: 7px;
     font-family: 'Crimson Text', serif;
     font-size: 19px;
     line-height: 1.5;
+    width: 80%;
+}
+
+.todo_div {
+    background: #9ED5C1;
+    margin-bottom: 20px;
+    width: 80%;
+    padding: 20px;
+    position: relative;
+    display: flex;
 }
 
 .project_link {
@@ -36,12 +51,23 @@ body {
 }
 
 #new_project_button {
-    background:rgb(156, 191, 226);
+    background:#BE3737;
     border: 0;
 }
 
-.delete_button,.show_button,#new_todo_button {
-    background: lightblue;
+.delete_button,.show_button {
+    background: #9ED5C1;
+    border: 0;
+    cursor: pointer;
+}
+
+.todo_options {
+    position: absolute;
+    right: 0;
+}
+
+#new_todo_button {
+    background: #47B28C;
     border: 0;
     cursor: pointer;
 }

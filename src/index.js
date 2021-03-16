@@ -1,7 +1,7 @@
 import todo from './todo';
 import createProject from './project';
 
-document.body.style.background="lightsalmon";
+document.body.style.background="#47B28C";
 
 // Create a few default projects and todos
 let listOfProjects=[]
@@ -23,7 +23,10 @@ const content = document.getElementById("content");
 
 const navbar = document.createElement('div');
 navbar.id="navbar";
-navbar.innerHTML="Project List"+"<br>"+"<br>";
+const navbar_heading=document.createElement("div");
+navbar_heading.id="navbar_heading";
+navbar_heading.innerHTML="Project List"+"<br>"+"<br>";
+navbar.appendChild(navbar_heading);
 
 const new_project=document.createElement("button");
 new_project.innerHTML='<i class="material-icons">add</i>';
@@ -73,25 +76,32 @@ function displayTodos() {
     projectData.innerHTML="";
     projectData.innerHTML=currentProject.name+"'s Todos : "+"<br><br>";
     for (let i=0;i<currentProject.listTodos().length;i++) {
-        projectData.innerHTML=projectData.innerHTML+currentProject.listTodos()[i].name+"&emsp;";
+        const todo_div=document.createElement("div");
+        todo_div.innerHTML=currentProject.listTodos()[i].name+"&emsp;";
+        todo_div.className="todo_div";
+       
+        const todo_options=document.createElement("div");
+        todo_options.className="todo_options";
         const delete_button=document.createElement("button");
         delete_button.id=currentProject.listTodos()[i].name;
         delete_button.className="delete_button";
         delete_button.innerHTML='<i class="material-icons delete_todo">delete</i>';
-        projectData.appendChild(delete_button);
-        projectData.innerHTML=projectData.innerHTML+"&emsp;";
+        todo_options.appendChild(delete_button);
+        todo_options.innerHTML=todo_options.innerHTML+"&emsp;";
 
         const show_button=document.createElement("button");
         show_button.id=currentProject.listTodos()[i].name;
         show_button.className="show_button";
         show_button.innerHTML='<i class="material-icons show_todo">keyboard_arrow_down</i>';
-        projectData.appendChild(show_button);
-        projectData.innerHTML=projectData.innerHTML+"<br>";
-        
+        todo_options.appendChild(show_button);
+        todo_div.appendChild(todo_options);
+
         const details=document.createElement("div");
         details.id=currentProject.listTodos()[i].name+"info";
         details.style.display="none";
-        projectData.appendChild(details);
+        todo_div.appendChild(details);
+
+        projectData.appendChild(todo_div);
     }
     const deleteBtns=document.getElementsByClassName("delete_button");
     for (let i=0;i<deleteBtns.length;i++) {
