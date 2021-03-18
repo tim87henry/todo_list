@@ -8,7 +8,8 @@
 }
 
 #navbar_heading {
-    font-size: 22px;
+    font-size: 24px;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 body {
@@ -28,6 +29,8 @@ body {
 
 .todo_div {
     background: #9ED5C1;
+    color: black;
+    font-family: 'Josefin Sans', sans-serif;
     margin-bottom: 20px;
     width: 80%;
     padding: 20px;
@@ -37,22 +40,50 @@ body {
 
 .project_link {
     cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 18px;
 }
 
 .project_link:hover {
-    background: lightcoral;
+    text-decoration: underline;
+}
+
+#project_navbar {
+    display: flex;
+    width: 80%;
+    margin-bottom: 50px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 24px;
+    color: black;
+}
+
+#add_todo_box_container {
+    display: none;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5); 
+    z-index: 1;
+    overflow: auto;
+    position: fixed;
 }
 
 #add_todo_box {
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    padding: 200px;
+    background: rgb(199, 110, 110);
+    display: none;
+    padding: 30px;
+    height: 200px;
+    width: 450px;
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #new_project_button {
     background:#BE3737;
     border: 0;
+    color: white;
 }
 
 .delete_button,.show_button {
@@ -70,4 +101,12 @@ body {
     background: #47B28C;
     border: 0;
     cursor: pointer;
+    position: absolute;
+    right: 500px;
+}
+
+.todo_details {
+    color: black;
+    margin-top: 40px;
+    font-family: 'Blinker', sans-serif;
 }
