@@ -25,7 +25,7 @@ const navbar = document.createElement('div');
 navbar.id="navbar";
 const navbar_heading=document.createElement("div");
 navbar_heading.id="navbar_heading";
-navbar_heading.innerHTML="Project List"+"<br>"+"<br>";
+navbar_heading.innerHTML="Projects"+"<br>"+"<br>";
 navbar.appendChild(navbar_heading);
 
 const new_project=document.createElement("button");
@@ -74,7 +74,10 @@ function showProjects() {
 
 function displayTodos() {
     projectData.innerHTML="";
-    projectData.innerHTML=currentProject.name+"'s Todos : "+"<br><br>";
+    const project_navbar=document.createElement("div");
+    project_navbar.id="project_navbar";
+    project_navbar.innerHTML=currentProject.name+"'s Todos : "+"<br><br>";
+    projectData.appendChild(project_navbar);
     for (let i=0;i<currentProject.listTodos().length;i++) {
         const todo_div=document.createElement("div");
         todo_div.innerHTML=currentProject.listTodos()[i].name+"&emsp;";
@@ -97,6 +100,7 @@ function displayTodos() {
         todo_div.appendChild(todo_options);
 
         const details=document.createElement("div");
+        details.className="todo_details";
         details.id=currentProject.listTodos()[i].name+"info";
         details.style.display="none";
         todo_div.appendChild(details);
@@ -178,13 +182,16 @@ function addNewTodo() {
     const new_todo=document.createElement("button");
     new_todo.id="new_todo_button";
     new_todo.innerHTML='<i class="material-icons">fiber_new</i>';
-    projectData.appendChild(new_todo)
+    const project_navbar=document.getElementById("project_navbar");
+    project_navbar.appendChild(new_todo)
     new_todo.addEventListener('click',function (e) {
         addTodo();
     });
 
 }
 
+const add_todo_box_container=document.createElement('div');
+add_todo_box_container.id="add_todo_box_container";
 const add_todo_box=document.createElement('div');
 const todo_name_div=document.createElement('div');
 const todo_name_label=document.createElement('div');
@@ -227,6 +234,7 @@ todoOkayBtn.addEventListener('click',function(e) {
     currentProject.addTodo(new_todo)
     todo_name_text.value="";
     add_todo_box.style.display="none";
+    add_todo_box_container.style.display="none";
     displayTodos();
 });
 
@@ -236,13 +244,16 @@ add_todo_box.appendChild(todoCancelBtn);
 todoCancelBtn.addEventListener('click',function(e) {
     todo_name_text.value="";
     add_todo_box.style.display="none";
+    add_todo_box_container.style.display="none";
 });
 
 add_todo_box.id="add_todo_box";
 add_todo_box.style.display="none";
-content.appendChild(add_todo_box);
+add_todo_box_container.appendChild(add_todo_box);
+content.appendChild(add_todo_box_container);
 
 
 function addTodo() {
     add_todo_box.style.display="block";
+    add_todo_box_container.style.display="block";
 }
