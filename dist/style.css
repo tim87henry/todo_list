@@ -10,10 +10,13 @@
 #navbar_heading {
     font-size: 24px;
     font-family: 'Ubuntu', sans-serif;
+    padding-left: 10px;
 }
 
 body {
     color:white;
+    border: 0;
+    margin: 0;
 }
 
 #todo_data {
@@ -42,6 +45,7 @@ body {
     cursor: pointer;
     font-family: 'Ubuntu', sans-serif;
     font-size: 18px;
+    padding-left: 20px;
 }
 
 .project_link:hover {
