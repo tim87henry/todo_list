@@ -6,11 +6,11 @@ document.body.style.background="#47B28C";
 // Create a few default projects and todos
 let listOfProjects=[]
 let currentProject;
-const doto = new todo("Clean room","Clean the damn room","today","very high");
+const doto = new todo("Clean room","Clean the damn room","2021-06-16","High");
 const test_project=createProject("Room")
 currentProject=test_project;
 test_project.addTodo(doto);
-const doto1 = new todo("Eat Chips","eat some crisps","next year","pretty low");
+const doto1 = new todo("Eat Chips","eat some crisps","2021-03-31","Pretty Low");
 test_project.addTodo(doto1);
 listOfProjects.push(test_project);
 const test_project1=createProject("Kitchen")
@@ -140,10 +140,13 @@ function showTodo(todo_name) {
 }
 
 // Add a new project
+const add_project_container=document.createElement('div');
+add_project_container.id="add_project_container";
 const add_project_box=document.createElement('div');
 const name_div=document.createElement('div');
 const name_label=document.createElement('div');
-name_label.innerHTML="Name :: ";
+name_label.innerHTML="Name";
+name_label.id="name_label";
 name_div.appendChild(name_label);
 const name_text=document.createElement('input');
 name_div.appendChild(name_text);
@@ -157,6 +160,7 @@ okayBtn.addEventListener('click',function(e) {
     listOfProjects.push(new_project);
     name_text.value="";
     add_project_box.style.display="none";
+    add_project_container.style.display="none";
     showProjects();
 });
 
@@ -170,11 +174,14 @@ cancelBtn.addEventListener('click',function(e) {
 
 add_project_box.id="add_project_box";
 add_project_box.style.display="none";
-navbar.appendChild(add_project_box);
+add_project_container.style.display="none";
+add_project_container.appendChild(add_project_box);
+navbar.appendChild(add_project_container);
 
 
 function addProject() {
     add_project_box.style.display="block";
+    add_project_container.style.display="block";
 }
 
 // Add a new Todo
@@ -195,44 +202,66 @@ add_todo_box_container.id="add_todo_box_container";
 const add_todo_box=document.createElement('div');
 const todo_name_div=document.createElement('div');
 const todo_name_label=document.createElement('div');
-todo_name_label.innerHTML="Name :: ";
+todo_name_label.innerHTML="Name";
 todo_name_div.appendChild(todo_name_label);
 const todo_name_text=document.createElement('input');
 todo_name_div.appendChild(todo_name_text);
+todo_name_div.className="add_todo_box_item";
 add_todo_box.appendChild(todo_name_div);
 
 const todo_descr_div=document.createElement('div');
 const todo_descr_label=document.createElement('div');
-todo_descr_label.innerHTML="Description :: ";
+todo_descr_label.innerHTML="Description";
 todo_descr_div.appendChild(todo_descr_label);
 const todo_descr_text=document.createElement('input');
 todo_descr_div.appendChild(todo_descr_text);
+todo_descr_div.className="add_todo_box_item";
 add_todo_box.appendChild(todo_descr_div);
 
 const todo_due_div=document.createElement('div');
 const todo_due_label=document.createElement('div');
-todo_due_label.innerHTML="Due by :: ";
+todo_due_label.innerHTML="Due by";
 todo_due_div.appendChild(todo_due_label);
 const todo_due_date=document.createElement('input');
 todo_due_date.type='date';
 todo_due_div.appendChild(todo_due_date);
+todo_due_div.className="add_todo_box_item";
 add_todo_box.appendChild(todo_due_div);
 
 const todo_priority_div=document.createElement('div');
 const todo_priority_label=document.createElement('div');
-todo_priority_label.innerHTML="Priority :: ";
+todo_priority_label.innerHTML="Priority";
 todo_priority_div.appendChild(todo_priority_label);
-const todo_priority_value=document.createElement('input');
+const todo_priority_value=document.createElement('select');
+var option_pl = document.createElement("option");
+option_pl.text="Pretty low";
+todo_priority_value.add(option_pl)
+var option_l = document.createElement("option");
+option_l.text="Low";
+todo_priority_value.add(option_l);
+var option_nc = document.createElement("option");
+option_nc.text="Nobody cares";
+todo_priority_value.add(option_nc);
+var option_h = document.createElement("option");
+option_h.text="High";
+todo_priority_value.add(option_h);
+var option_dh = document.createElement("option");
+option_dh.text="Damn high";
+todo_priority_value.add(option_dh);
 todo_priority_div.appendChild(todo_priority_value);
+todo_priority_div.className="add_todo_box_item";
 add_todo_box.appendChild(todo_priority_div);
 
 const todoOkayBtn=document.createElement('button');
 todoOkayBtn.innerHTML="Okay";
+todoOkayBtn.className="add_todo_box_button";
 add_todo_box.appendChild(todoOkayBtn);
 todoOkayBtn.addEventListener('click',function(e) {
     const new_todo=new todo(todo_name_text.value,todo_descr_text.value,todo_due_date.value,todo_priority_value.value);
     currentProject.addTodo(new_todo)
     todo_name_text.value="";
+    todo_descr_text.value="";
+    todo_priority_value.value="Pretty low";
     add_todo_box.style.display="none";
     add_todo_box_container.style.display="none";
     displayTodos();
@@ -240,6 +269,7 @@ todoOkayBtn.addEventListener('click',function(e) {
 
 const todoCancelBtn=document.createElement('button');
 todoCancelBtn.innerHTML="Cancel";
+todoCancelBtn.className="add_todo_box_button";
 add_todo_box.appendChild(todoCancelBtn);
 todoCancelBtn.addEventListener('click',function(e) {
     todo_name_text.value="";
