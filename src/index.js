@@ -85,6 +85,14 @@ function displayTodos() {
        
         const todo_options=document.createElement("div");
         todo_options.className="todo_options";
+
+        const edit_button=document.createElement("button");
+        edit_button.id=currentProject.listTodos()[i].name;
+        edit_button.className="edit_button";
+        edit_button.innerHTML='<i class="material-icons edit_todo">edit</i>';
+        todo_options.appendChild(edit_button);
+        todo_options.innerHTML=todo_options.innerHTML+"&emsp;";
+
         const delete_button=document.createElement("button");
         delete_button.id=currentProject.listTodos()[i].name;
         delete_button.className="delete_button";
@@ -107,6 +115,14 @@ function displayTodos() {
 
         projectData.appendChild(todo_div);
     }
+    
+    const editBtns=document.getElementsByClassName("edit_button");
+    for (let i=0;i<editBtns.length;i++) {
+        editBtns[i].addEventListener('click', function (e) {
+            editTodo(editBtns[i].id)
+        });
+    }
+
     const deleteBtns=document.getElementsByClassName("delete_button");
     for (let i=0;i<deleteBtns.length;i++) {
         deleteBtns[i].addEventListener('click', function (e) {
@@ -197,6 +213,7 @@ function addNewTodo() {
 
 }
 
+// Adding a new todo
 const add_todo_box_container=document.createElement('div');
 add_todo_box_container.id="add_todo_box_container";
 const add_todo_box=document.createElement('div');
@@ -286,4 +303,97 @@ content.appendChild(add_todo_box_container);
 function addTodo() {
     add_todo_box.style.display="block";
     add_todo_box_container.style.display="block";
+}
+
+
+// Editing an existing todo
+const edit_todo_box_container=document.createElement('div');
+edit_todo_box_container.id="edit_todo_box_container";
+const edit_todo_box=document.createElement('div');
+const todo_edit_name_div=document.createElement('div');
+const todo_edit_name_label=document.createElement('div');
+todo_edit_name_label.innerHTML="Name";
+todo_edit_name_div.appendChild(todo_edit_name_label);
+const todo_edit_name_text=document.createElement('input');
+todo_edit_name_text.id="todo_edit_name_text";
+todo_edit_name_div.appendChild(todo_edit_name_text);
+todo_edit_name_div.className="edit_todo_box_item";
+edit_todo_box.appendChild(todo_edit_name_div);
+
+const todo_edit_descr_div=document.createElement('div');
+const todo_edit_descr_label=document.createElement('div');
+todo_edit_descr_label.innerHTML="Description";
+todo_edit_descr_div.appendChild(todo_edit_descr_label);
+const todo_edit_descr_text=document.createElement('input');
+todo_edit_descr_text.id="todo_edit_descr_text";
+todo_edit_descr_div.appendChild(todo_edit_descr_text);
+todo_edit_descr_div.className="add_todo_box_item";
+edit_todo_box.appendChild(todo_edit_descr_div);
+
+const todo_edit_due_div=document.createElement('div');
+const todo_edit_due_label=document.createElement('div');
+todo_edit_due_label.innerHTML="Due by";
+todo_edit_due_div.appendChild(todo_edit_due_label);
+const todo_edit_due_date=document.createElement('input');
+todo_edit_due_date.type='date';
+todo_edit_due_date.id="todo_edit_due_date";
+todo_edit_due_div.appendChild(todo_edit_due_date);
+todo_edit_due_div.className="edit_todo_box_item";
+edit_todo_box.appendChild(todo_edit_due_div);
+
+const todo_edit_priority_div=document.createElement('div');
+const todo_edit_priority_label=document.createElement('div');
+todo_edit_priority_label.innerHTML="Priority";
+todo_edit_priority_div.appendChild(todo_edit_priority_label);
+const todo_edit_priority_value=document.createElement('select');
+todo_edit_priority_value.id="todo_edit_priority_value";
+var option_pl = document.createElement("option");
+option_pl.text="Pretty low";
+todo_edit_priority_value.add(option_pl)
+var option_l = document.createElement("option");
+option_l.text="Low";
+todo_edit_priority_value.add(option_l);
+var option_nc = document.createElement("option");
+option_nc.text="Nobody cares";
+todo_edit_priority_value.add(option_nc);
+var option_h = document.createElement("option");
+option_h.text="High";
+todo_edit_priority_value.add(option_h);
+var option_dh = document.createElement("option");
+option_dh.text="Damn high";
+todo_edit_priority_value.add(option_dh);
+todo_edit_priority_div.appendChild(todo_edit_priority_value);
+todo_edit_priority_div.className="edit_todo_box_item";
+edit_todo_box.appendChild(todo_edit_priority_div);
+
+const todoEditOkayBtn=document.createElement('button');
+todoEditOkayBtn.innerHTML="Okay";
+todoEditOkayBtn.className="add_todo_box_button";
+edit_todo_box.appendChild(todoEditOkayBtn);
+todoEditOkayBtn.addEventListener('click',function(e) {
+    currentProject.editValues();
+    edit_todo_box.style.display="none";
+    edit_todo_box_container.style.display="none";
+    displayTodos();
+});
+
+const todoEditCancelBtn=document.createElement('button');
+todoEditCancelBtn.innerHTML="Cancel";
+todoEditCancelBtn.className="add_todo_box_button";
+edit_todo_box.appendChild(todoEditCancelBtn);
+todoEditCancelBtn.addEventListener('click',function(e) {
+    todo_name_text.value="";
+    edit_todo_box.style.display="none";
+    edit_todo_box_container.style.display="none";
+});
+
+edit_todo_box.id="edit_todo_box";
+edit_todo_box.style.display="none";
+edit_todo_box_container.appendChild(edit_todo_box);
+content.appendChild(edit_todo_box_container);
+
+function editTodo(todo_name) {
+    currentProject.editTodo(todo_name);
+    edit_todo_box.style.display="block";
+    edit_todo_box_container.style.display="block";   
 }

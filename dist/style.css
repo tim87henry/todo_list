@@ -61,7 +61,7 @@ body {
     color: black;
 }
 
-#add_todo_box_container {
+#add_todo_box_container,#edit_todo_box_container {
     display: none;
     height: 100%;
     width: 100%;
@@ -71,7 +71,7 @@ body {
     position: fixed;
 }
 
-#add_todo_box {
+#add_todo_box,#edit_todo_box {
     background: rgb(199, 110, 110);
     display: none;
     padding: 30px;
@@ -91,7 +91,7 @@ body {
     color: white;
 }
 
-.delete_button,.show_button {
+.delete_button,.show_button,.edit_button {
     background: #9ED5C1;
     border: 0;
     cursor: pointer;
